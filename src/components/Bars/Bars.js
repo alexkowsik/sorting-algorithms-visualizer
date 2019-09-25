@@ -13,6 +13,7 @@ class Bars extends React.Component {
   arraySorted = false;
 
   shuffleArray = e => {
+    this.arraySorted = false;
     this.stoppage = true;
     this.setState({ buttonDisabled: false });
     const array = [...this.state.array];
