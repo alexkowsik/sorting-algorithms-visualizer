@@ -6,3 +6,10 @@
   align-items: center;
   justify-content: space-evenly;
 }
+
+@media (max-width: 1112px) {
+  .container {
+    width: 90%;
+    height: 95%;
+  }
+}
