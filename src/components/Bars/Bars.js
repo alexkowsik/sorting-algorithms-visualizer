@@ -9,12 +9,10 @@ class Bars extends React.Component {
     array: shuffle([...Array(51).keys()].splice(1)),
     buttonDisabled: false
   };
-  stoppage = false;
   arraySorted = false;
 
   shuffleArray = e => {
     this.arraySorted = false;
-    this.stoppage = true;
     this.setState({ buttonDisabled: false });
     const array = [...this.state.array];
     shuffle(array);
@@ -25,12 +23,14 @@ class Bars extends React.Component {
     return new Promise(resolve => setTimeout(resolve, milliseconds));
   };
 
-  bubbleSort = e => {
-    this.stoppage = false;
-
+  /*
+   *
+   * -------- SORTING ALGORITHMS --------
+   *
+   */
+  bubbleSort = () => {
     this.setState({ buttonDisabled: true }, async e => {
       console.log(this.state.array);
-      console.log(this.stoppage);
       let chart = this.reference.chartInstance;
 
       const defaltColor = 'rgb(255, 99, 132)';
@@ -44,11 +44,6 @@ class Bars extends React.Component {
 
       for (let i = 0; i < dataArray.length; i++) {
         for (let j = 0; j < dataArray.length - i - 1; j++) {
-          if (this.stoppage) {
-            this.stoppage = false;
-            return;
-          }
-
           colors[j] = 'rgb(123, 42, 412)';
           chart.data.datasets[0].backgroundColor = colors;
 
@@ -115,7 +110,9 @@ class Bars extends React.Component {
         <button onClick={this.bubbleSort} disabled={this.state.buttonDisabled}>
           Sort
         </button>
-        <button onClick={this.shuffleArray}>Shuffle</button>
+        <button onClick={this.shuffleArray} disabled={this.state.buttonDisabled}>
+          Shuffle
+        </button>
       </>
     );
   }
