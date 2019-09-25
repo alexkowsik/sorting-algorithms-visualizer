@@ -103,7 +103,7 @@ class Bars extends React.Component {
               xAxes: [{ gridLines: { color: 'rgba(255, 99, 132, 0.2)' } }]
             },
             animation: {
-              duration: 100,
+              duration: 80,
               xAxes: true,
               yAxes: true
             }
