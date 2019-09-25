@@ -30,21 +30,16 @@ class Bars extends React.Component {
    */
   bubbleSort = () => {
     this.setState({ buttonDisabled: true }, async e => {
-      console.log(this.state.array);
       let chart = this.reference.chartInstance;
-
-      const defaltColor = 'rgb(255, 99, 132)';
       const dataArray = chart.data.datasets[0].data;
       const meta = chart.getDatasetMeta(0);
       const colors = chart.data.datasets[0].backgroundColor;
-
-      console.log(colors);
-
+      const defaltColor = 'rgb(255, 99, 132)';
       let tmp;
 
       for (let i = 0; i < dataArray.length; i++) {
         for (let j = 0; j < dataArray.length - i - 1; j++) {
-          colors[j] = 'rgb(123, 42, 412)';
+          colors[j] = '#c941fa';
           chart.data.datasets[0].backgroundColor = colors;
 
           chart.update();
@@ -59,13 +54,13 @@ class Bars extends React.Component {
             meta.data[j] = meta.data[j + 1];
             meta.data[j + 1] = tmp;
 
-            colors[j + 1] = 'rgb(123, 42, 412)';
+            colors[j + 1] = '#c941fa';
           }
 
           colors[j] = defaltColor;
           chart.data.datasets[0].backgroundColor = colors;
         }
-        colors[dataArray.length - i - 1] = 'green';
+        colors[dataArray.length - i - 1] = '#7cc746';
         chart.data.datasets[0].backgroundColor = colors;
         chart.update();
       }
@@ -84,7 +79,7 @@ class Bars extends React.Component {
               {
                 data: this.state.array,
                 backgroundColor: [...Array(this.state.array.length).keys()].map(() => {
-                  return this.arraySorted ? 'green' : 'rgb(255, 99, 132)';
+                  return this.arraySorted ? '#7cc746' : 'rgb(255, 99, 132)';
                 })
               }
             ]
@@ -104,7 +99,7 @@ class Bars extends React.Component {
             }
           }}
           ref={reference => (this.reference = reference)}
-          redraw={!this.arraySorted}
+          redraw
         />
 
         <button onClick={this.bubbleSort} disabled={this.state.buttonDisabled}>
