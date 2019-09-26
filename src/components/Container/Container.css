@@ -1,5 +1,5 @@
 .container {
-  height: 600px;
+  height: 660px;
   width: 1000px;
   display: flex;
   flex-direction: column;
@@ -10,6 +10,6 @@
 @media (max-width: 1112px) {
   .container {
     width: 90%;
-    height: 95%;
+    height: 70vmin;
   }
 }

@@ -1,13 +1,20 @@
 import React from 'react';
 import './Chart.css';
 import { Bar } from 'react-chartjs-2';
+import Select from 'react-select';
 
 const algorithms = require('../../utils/algorithms');
 
 class Bars extends React.Component {
   state = {
     array: algorithms.shuffle([...Array(51).keys()].splice(1)),
-    buttonDisabled: false
+    buttonDisabled: false,
+    selectedAlgorithm: algorithms.bubbleSort,
+    algorithms: [
+      { name: algorithms.bubbleSort, label: 'Bubble Sort' },
+      { name: 'strawberry', label: 'Quick Sort' },
+      { name: 'vanilla', label: 'Merge Sort' }
+    ]
   };
   arraySorted = false;
 
@@ -18,16 +25,28 @@ class Bars extends React.Component {
     this.setState({ array: array, buttonDisabled: false });
   };
 
-  bubbleSort = reference => {
+  startSorting = reference => {
     this.setState({ buttonDisabled: true }, () => {
-      algorithms.bubbleSort(reference).then(() => {
+      this.state.selectedAlgorithm(reference).then(() => {
         this.arraySorted = true;
         this.setState({ buttonDisabled: false });
       });
     });
   };
 
+  changeAlgorithm = algorithm => {
+    this.setState({ selectedAlgorithm: algorithm.name });
+  };
+
   render() {
+    const customStyles = {
+      option: provided => ({
+        ...provided,
+        backgroundColor: '#FFFFFF',
+        color: '#000000'
+      })
+    };
+
     return (
       <>
         <Bar
@@ -54,18 +73,31 @@ class Bars extends React.Component {
               duration: 80,
               xAxes: true,
               yAxes: true
+            },
+            tooltips: {
+              enabled: false
             }
           }}
           ref={reference => (this.reference = reference)}
           redraw
         />
 
+        <Select
+          styles={customStyles}
+          className='dropdown'
+          defaultValue={this.state.algorithms[0]}
+          options={this.state.algorithms}
+          onChange={this.changeAlgorithm}
+          isDisabled={this.state.buttonDisabled}
+        />
+
         <button
-          onClick={() => this.bubbleSort(this.reference)}
+          onClick={() => this.startSorting(this.reference)}
           disabled={this.state.buttonDisabled}
         >
           Sort
         </button>
+
         <button onClick={this.shuffleArray} disabled={this.state.buttonDisabled}>
           Shuffle
         </button>
