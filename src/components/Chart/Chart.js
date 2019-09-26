@@ -3,7 +3,7 @@ import './Chart.css';
 import { Bar } from 'react-chartjs-2';
 import Select from 'react-select';
 
-const algorithms = require('../../utils/algorithms');
+import algorithms from '../../utils/algorithms';
 
 class Bars extends React.Component {
   state = {

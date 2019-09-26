@@ -28,7 +28,7 @@ const bubbleSort = async reference => {
 
   for (let i = 0; i < dataArray.length; i++) {
     for (let j = 0; j < dataArray.length - i - 1; j++) {
-      colors[j] = '#c941fa';
+      colors[j] = '#991fc4';
       chart.data.datasets[0].backgroundColor = colors;
 
       chart.update();
@@ -43,7 +43,7 @@ const bubbleSort = async reference => {
         meta.data[j] = meta.data[j + 1];
         meta.data[j + 1] = tmp;
 
-        colors[j + 1] = '#c941fa';
+        colors[j + 1] = '#991fc4';
       }
 
       colors[j] = defaltColor;
@@ -55,7 +55,44 @@ const bubbleSort = async reference => {
   }
 };
 
-module.exports = {
+const mergeSort = async reference => {
+  let chart = reference.chartInstance;
+  const dataArray = chart.data.datasets[0].data;
+  const meta = chart.getDatasetMeta(0);
+  const colors = chart.data.datasets[0].backgroundColor;
+  const defaltColor = 'rgb(255, 99, 132)';
+  let tmp;
+
+  for (let i = 0; i < dataArray.length; i++) {
+    for (let j = 0; j < dataArray.length - i - 1; j++) {
+      colors[j] = '#991fc4';
+      chart.data.datasets[0].backgroundColor = colors;
+
+      chart.update();
+      await sleep(10);
+
+      if (dataArray[j] > dataArray[j + 1]) {
+        tmp = dataArray[j];
+        dataArray[j] = dataArray[j + 1];
+        dataArray[j + 1] = tmp;
+
+        tmp = meta.data[j];
+        meta.data[j] = meta.data[j + 1];
+        meta.data[j + 1] = tmp;
+
+        colors[j + 1] = '#991fc4';
+      }
+
+      colors[j] = defaltColor;
+      chart.data.datasets[0].backgroundColor = colors;
+    }
+    colors[dataArray.length - i - 1] = '#7cc746';
+    chart.data.datasets[0].backgroundColor = colors;
+    chart.update();
+  }
+};
+
+export default {
   shuffle: shuffle,
   bubbleSort: bubbleSort
 };
