@@ -1,32 +1,26 @@
 import React from 'react';
-import './Bars.css';
+import './Chart.css';
 import { Bar } from 'react-chartjs-2';
 
-const shuffle = require('../../utils/algorithms').shuffle;
-const bs = require('../../utils/algorithms').bubbleSort;
+const algorithms = require('../../utils/algorithms');
 
 class Bars extends React.Component {
   state = {
-    array: shuffle([...Array(51).keys()].splice(1)),
+    array: algorithms.shuffle([...Array(51).keys()].splice(1)),
     buttonDisabled: false
   };
   arraySorted = false;
 
   shuffleArray = e => {
     this.arraySorted = false;
-    this.setState({ buttonDisabled: false });
     const array = [...this.state.array];
-    shuffle(array);
-    this.setState({ array: array });
-  };
-
-  sleep = milliseconds => {
-    return new Promise(resolve => setTimeout(resolve, milliseconds));
+    algorithms.shuffle(array);
+    this.setState({ array: array, buttonDisabled: false });
   };
 
   bubbleSort = reference => {
     this.setState({ buttonDisabled: true }, () => {
-      bs(reference).then(() => {
+      algorithms.bubbleSort(reference).then(() => {
         this.arraySorted = true;
         this.setState({ buttonDisabled: false });
       });

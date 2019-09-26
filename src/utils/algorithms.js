@@ -20,7 +20,6 @@ const sleep = milliseconds => {
  */
 const bubbleSort = async reference => {
   let chart = reference.chartInstance;
-  console.log(chart);
   const dataArray = chart.data.datasets[0].data;
   const meta = chart.getDatasetMeta(0);
   const colors = chart.data.datasets[0].backgroundColor;
